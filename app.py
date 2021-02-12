@@ -3,8 +3,9 @@ from livereload import Server
 from datetime import datetime
 import requests
 
+from config import KEY
+
 app = Flask(__name__, template_folder='templates')
-key = '581cee2f55870ef5bba4a1fb82038c6f'
 base = 'https://api.openweathermap.org/data/2.5/weather'
 WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday',
             'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -16,7 +17,7 @@ def index():
     if city is None:
         return render_template('index.html')
 
-    url = f'{base}?q={city}&appid={key}&units=metric'
+    url = f'{base}?q={city}&appid={KEY}&units=metric'
 
     response = requests.get(url)
 
@@ -37,4 +38,3 @@ def index():
 if __name__ == '__main__':
     server = Server(app.wsgi_app)
     server.serve(port=5000)
-    # app.run()
