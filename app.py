@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from livereload import Server
 from datetime import datetime
 import requests
 
@@ -21,10 +22,9 @@ def index():
 
     if response.status_code == 200:
         data = response.json()
-        temp = data['main']['temp']
+        temp_min = data['main']['temp']
         day = WEEKDAYS[datetime.today().weekday()]
         country = data['sys']['country']
-        print(country)
 
         return render_template('index.html', 
                                 city=city, 
@@ -35,4 +35,6 @@ def index():
         return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run()
+    server = Server(app.wsgi_app)
+    server.serve(port=5000)
+    # app.run()
