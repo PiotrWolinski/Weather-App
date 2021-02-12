@@ -1,0 +1,61 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+    url("../images/background.jpg") no-repeat center center fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.main {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(243, 243, 243, 0.8),
+    rgba(243, 243, 243, 0.6)
+  );
+  margin-top: 5%;
+  max-width: 40%;
+  max-height: 40%;
+  min-height: 400px;
+  border: 0px;
+  border-radius: 26px;
+}
+
+.data {
+  color: #3a3a3a;
+  font-size: 2em;
+}
+
+.text-error {
+  color: #3a3a3a;
+  font-size: 2em;
+}
+
+.text-initial {
+  color: #3a3a3a;
+  font-size: 2em;
+}
+
+.button {
+  color: #3a3a3a;
+  background-color: rgb(243, 243, 243);
+  border: 0px;
+}
+
+.day {
+  font-size: 1.7em;
+}
+
+.country {
+  font-size: 2.2em;
+}
+
+.weather {
+  font-size: 2.2em;
+}
+
+.info {
+  color: #6e6e6e;
+}
+
+.title {
+  background-color: rgb(243, 243, 243);
+}

@@ -9,10 +9,10 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/style.css">
     <title>Weather app</title>
   </head>
-  <body class="bg-light">
+  <body>
       <div class="container p-2 main">
         <div class="d-flex justify-content-center p-2 m-4">
             <form method='GET' action='http://127.0.0.1:5000/'>
@@ -20,36 +20,48 @@
                     <div class="col-auto">
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">City:</div>
+                                <div class="input-group-text title">City:</div>
                             </div>
                             <input type="text" class="form-control" name="city" id="cityName" placeholder="Type here..." autocomplete="off">
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-secondary mb-1">Search</button>
+                        <button type="submit" class="btn btn-secondary mb-1 button">Search</button>
                     </div>
                 </div>
             </form>
         </div>
         <div class="p-3">
-          {% if city %}
+          {% if success and not initial %}
           <div class="row">
-            <div class="col-sm-6 offset-sm-3 text-center pb-2 text-light display-3 date">{{day}}</div>
+            <div class="col-sm-6 offset-sm-3 text-center p-1 day">{{ data['day'] }}</div>
           </div>
           <div class="row">
-            <div class="col-sm-6 offset-sm-3 text-center text-light display-4 city">{{city}}, {{country}}</div>
+            <div class="col-sm-6 offset-sm-3 text-center p-1 data country info">{{ data['city'] }}, {{ data['country'] }}</div>
           </div>
           <div class="row">
-            <div class="col-sm-6 offset-sm-3 text-center text-light display-4 temp">{{temp}}°C</div>
+            <div class="col-sm-6 offset-sm-3 text-center p-1 weather">Weather:</div>
           </div>
-          {% else %}
           <div class="row">
-            <div class="col-sm-6 offset-sm-3 text-center text-light display-3 date">Type in city to see results!</div>
+            <div class="col-sm-6 offset-sm-3 text-center p-1 data info">{{ data['weather'] }}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 offset-sm-3 text-center p-1 weather">Temperature:</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 offset-sm-3 text-center p-1 data info">{{ data['temp_min'] }}°C / {{ data['temp_max'] }}°C</div>
+          </div>
+          {% elif not success and not initial %}
+          <div class="row">
+            <div class="col-sm-8 offset-sm-2 text-center text-error">Please, type in correct name</div>
+          </div>
+          {% elif not success and initial %}
+          <div class="row">
+            <div class="col-sm-8 offset-sm-2 text-center text-initial">Type in city to see results!</div>
           </div>
           {% endif %}
         </div>
       </div>
-
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
