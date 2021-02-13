@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request
-from datetime import datetime
+from datetime import datetime, timezone
 import requests
 
-from config import KEY
+from config import OPENWEATHER_KEY
 
 app = Flask(__name__, template_folder='templates')
-base = 'https://api.openweathermap.org/data/2.5/weather'
+OW_BASE = 'https://api.openweathermap.org/data/2.5/weather'
 
+# ensures that the first letter will be capital and other small
 def parse_name(s: str) -> str:
     words = s.split(' ')
     output = []
@@ -18,9 +19,33 @@ def parse_name(s: str) -> str:
 
     return ' '.join(output)
 
+# parses current date to format: "WEEKDAY, DD MM YYYY"
 def show_date() -> str:
     output = datetime.today().strftime("%A, %d %B %Y")
     return output
+
+# gets weather info based on the city name
+def get_weather(city: str) -> dict:
+    url = f'{OW_BASE}?q={city}&appid={OPENWEATHER_KEY}&units=metric'
+
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        weather_data = response.json()
+        data = {}
+        data['city'] = parse_name(city)
+        data['temp_min'] = weather_data['main']['temp_min']
+        data['temp_max'] = weather_data['main']['temp_max']
+        data['country'] = weather_data['sys']['country']
+        data['weather'] = weather_data['weather'][0]['description']
+
+        lat = weather_data['coord']['lat']
+        lng = weather_data['coord']['lon']
+
+        data['day'] = show_date()
+        return data
+    else:
+        return None
 
 @app.route('/', methods=['GET'])
 def index():
@@ -34,22 +59,11 @@ def index():
                                 initial=initial)
 
     initial = False
+    
+    data = get_weather(city)
 
-    url = f'{base}?q={city}&appid={KEY}&units=metric'
-
-    response = requests.get(url)
-
-    if response.status_code == 200:
+    if data is not None:
         success = True
-        weather_data = response.json()
-        data = {}
-        data['city'] = parse_name(city)
-        data['temp_min'] = weather_data['main']['temp_min']
-        data['temp_max'] = weather_data['main']['temp_max']
-        data['country'] = weather_data['sys']['country']
-        data['weather'] = weather_data['weather'][0]['description']
-        data['day'] = show_date()
-
         return render_template('index.html', 
                                 data=data,
                                 success=success,
@@ -58,6 +72,7 @@ def index():
         return render_template('index.html', 
                                 success=success,
                                 initial=initial)
+
 
 if __name__ == '__main__':
     app.run()
