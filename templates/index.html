@@ -34,10 +34,10 @@
         <div class="p-3">
           {% if success and not initial %}
           <div class="row">
-            <div class="col-sm-6 offset-sm-3 text-center p-1 day">{{ data['day'] }}</div>
+            <div class="col-sm-6 offset-sm-3 text-center p-1 data country">{{ data['city'] }}, {{ data['country'] }}</div>
           </div>
           <div class="row">
-            <div class="col-sm-6 offset-sm-3 text-center p-1 data country info">{{ data['city'] }}, {{ data['country'] }}</div>
+            <div class="col-sm-6 offset-sm-3 text-center p-1 day info">{{ data['day'] }}</div>
           </div>
           <div class="row">
             <div class="col-sm-6 offset-sm-3 text-center p-1 weather">Weather:</div>

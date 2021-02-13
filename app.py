@@ -12,8 +12,7 @@ def parse_name(s: str) -> str:
     output = []
     for w in words:
         low_word = w.lower()
-        print(low_word)
-        tmp_word = low_word.split()
+        tmp_word = list(low_word)
         tmp_word[0] = tmp_word[0].upper()
         output.append(''.join(tmp_word))
 
@@ -22,7 +21,6 @@ def parse_name(s: str) -> str:
 def show_date() -> str:
     output = datetime.today().strftime("%A, %d %B %Y")
     return output
-        
 
 @app.route('/', methods=['GET'])
 def index():
