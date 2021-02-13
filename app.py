@@ -39,9 +39,6 @@ def get_weather(city: str) -> dict:
         data['country'] = weather_data['sys']['country']
         data['weather'] = weather_data['weather'][0]['description']
 
-        lat = weather_data['coord']['lat']
-        lng = weather_data['coord']['lon']
-
         data['day'] = show_date()
         return data
     else:
