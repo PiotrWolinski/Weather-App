@@ -6,6 +6,7 @@ from config import OPENWEATHER_KEY
 
 app = Flask(__name__, template_folder='templates')
 OW_BASE = 'https://api.openweathermap.org/data/2.5/weather'
+ICON_BASE = 'http://openweathermap.org/img/w/'
 
 # ensures that the first letter will be capital and other small
 def parse_name(s: str) -> str:
@@ -38,6 +39,8 @@ def get_weather(city: str) -> dict:
         data['temp_max'] = weather_data['main']['temp_max']
         data['country'] = weather_data['sys']['country']
         data['weather'] = weather_data['weather'][0]['description']
+        icon_id = weather_data['weather'][0]['icon']
+        data['icon'] = f'{ICON_BASE}{icon_id}.png'
 
         data['day'] = show_date()
         return data
