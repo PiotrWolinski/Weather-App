@@ -8,4 +8,4 @@ This app needs an openweathermap API key which can be generated after signing up
 
 ## Usage
 
-Simply run a **app.py** file from the command line.
+Simply run an **app.py** from the command line.
